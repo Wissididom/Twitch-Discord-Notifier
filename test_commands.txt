@@ -1,0 +1,4 @@
+twitch event verify-subscription cheer -F http://localhost:1337 -s TestSecret
+twitch event trigger channel.unban_request.create -F http://localhost:1337 -t 636874779 -s TestSecret
+twitch event trigger channel.unban_request.resolve -F http://localhost:1337 -t 636874779 -s TestSecret
+./cloudflared --url http://localhost:1337

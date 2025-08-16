@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "start": "deno run --env -NE main.ts",
+    "dev": "deno run --env -NE --watch main.ts"
+  },
+  "imports": {
+    "hono": "jsr:@hono/hono@^4.9.0"
+  }
+}

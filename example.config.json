@@ -1,0 +1,13 @@
+[
+  {
+    "channel": "Twitch-Channel-ID",
+    "events": [
+      {
+        "event": "Twitch-Event-Name",
+        "webhook": "Discord Webhook URL",
+        "threadId": "Thread ID if applicable, null if not",
+        "hideBroadcaster": false
+      }
+    ]
+  }
+]
