@@ -1,16 +1,16 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@hono/hono@^4.9.4": "4.9.4"
+    "jsr:@hono/hono@^4.9.6": "4.9.6"
   },
   "jsr": {
-    "@hono/hono@4.9.4": {
-      "integrity": "de006e32f3bab18e5a5bed4c75c5e0aaa46958d3653e6646b534a874d690dccc"
+    "@hono/hono@4.9.6": {
+      "integrity": "b85abb0013d167a290b1808d1d4d542dee269df31d4f47122023259fdd7e184b"
     }
   },
   "workspace": {
     "dependencies": [
-      "jsr:@hono/hono@^4.9.4"
+      "jsr:@hono/hono@^4.9.6"
     ]
   }
 }
