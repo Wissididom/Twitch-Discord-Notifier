@@ -54,18 +54,18 @@ export async function authCallback(c) {
         );
       }
     } else {
-      res.text(await fetchResponse.text());
+      c.text(await fetchResponse.text());
     }
   } else if (errorQ) {
     if (errorDescription) {
-      res.text(
+      c.text(
         `The following error occured:\n${errorQ}\n${errorDescription}`,
       );
     } else {
-      res.text(`The following error occured:\n${errorQ}`);
+      c.text(`The following error occured:\n${errorQ}`);
     }
   } else {
-    res.text(
+    c.text(
       "This endpoint is intended to be redirected from Twitch's auth flow. It is not meant to be called directly",
     );
   }
