@@ -114,14 +114,14 @@ app.post("/", async (c) => {
               fields.push({
                 name: "Broadcaster",
                 value:
-                  `[\`${notification.event.broadcaster_user_name}\` (\`${notification.event.broadcaster_user_login}\` - \`${notification.event.broadcaster_user_id}\`)](<https://www.twitch.tv/${notification.event.broadcaster_user_login}>)`,
+                  `[\`${notification.event.broadcaster_user_name}\` (\`${notification.event.broadcaster_user_login}\`)](<https://www.twitch.tv/${notification.event.broadcaster_user_login}>) (ID: ${notification.event.broadcaster_user_id})`,
                 inline: false,
               });
             }
             fields.push({
               name: "User",
               value:
-                `[\`${notification.event.user_name}\` (\`${notification.event.user_login}\` - \`${notification.event.user_id}\`)](<https://www.twitch.tv/${notification.event.user_login}>)`,
+                `[\`${notification.event.user_name}\` (\`${notification.event.user_login}\`)](<https://www.twitch.tv/${notification.event.user_login}>) (ID: ${notification.event.user_id}) - [Open Viewercard](<https://www.twitch.tv/popout/${notification.event.broadcaster_user_login}/viewercard/${notification.event.user_login}>)`,
               inline: false,
             });
             fields.push({
@@ -139,7 +139,9 @@ app.post("/", async (c) => {
                     ? `New Unban Request (${notification.event.id}) created`
                     : "New Unban Request created",
                   fields,
-                  description: `\`\`\`${notification.event.text}\`\`\``,
+                  description: `**Request Text:**\n\`\`\`${
+                    notification.event.text ?? "N/A"
+                  }\`\`\``,
                 },
               ],
             };
@@ -182,24 +184,36 @@ app.post("/", async (c) => {
           for (const event of events) {
             const fields: { name: string; value: string; inline: boolean }[] =
               [];
+            if (notification.event.id) {
+              fields.push({
+                name: "Unban Request ID",
+                value: notification.event.id,
+                inline: false,
+              });
+            }
+            fields.push({
+              name: "Status",
+              value: notification.event.status,
+              inline: false,
+            });
             if (!event.hideBroadcaster) {
               fields.push({
                 name: "Broadcaster",
                 value:
-                  `[\`${notification.event.broadcaster_user_name}\` (\`${notification.event.broadcaster_user_login}\` - \`${notification.event.broadcaster_user_id}\`)](<https://www.twitch.tv/${notification.event.broadcaster_user_login}>)`,
+                  `[\`${notification.event.broadcaster_user_name}\` (\`${notification.event.broadcaster_user_login}\`)](<https://www.twitch.tv/${notification.event.broadcaster_user_login}>) (ID: ${notification.event.broadcaster_user_id})`,
                 inline: false,
               });
             }
             fields.push({
               name: "Moderator",
               value:
-                `[\`${notification.event.moderator_user_name}\` (\`${notification.event.moderator_user_login}\` - \`${notification.event.moderator_user_id}\`)](<https://www.twitch.tv/${notification.event.moderator_user_login}>)`,
+                `[\`${notification.event.moderator_user_name}\` (\`${notification.event.moderator_user_login}\`)](<https://www.twitch.tv/${notification.event.moderator_user_login}>) (ID: ${notification.event.moderator_user_id})`,
               inline: false,
             });
             fields.push({
               name: "User",
               value:
-                `[\`${notification.event.user_name}\` (\`${notification.event.user_login}\` - \`${notification.event.user_id}\`)](<https://www.twitch.tv/${notification.event.user_login}>)`,
+                `[\`${notification.event.user_name}\` (\`${notification.event.user_login}\` - \`${notification.event.user_id}\`)](<https://www.twitch.tv/${notification.event.user_login}>) (ID: ${notification.event.user_id}) - [Open Viewercard](<https://www.twitch.tv/popout/${notification.event.broadcaster_user_login}/viewercard/${notification.event.user_login}>)`,
               inline: false,
             });
             const discordPayload = {
@@ -210,8 +224,9 @@ app.post("/", async (c) => {
                     ? `Unban Request ${notification.event.id} ${notification.event.status}`
                     : `Unban Request ${notification.event.status}`,
                   fields,
-                  description:
-                    `**Status: \`${notification.event.status}\`**\n**Resolution Text:**\n\`\`\`${notification.event.resolution_text}\`\`\``,
+                  description: `**Resolution Text:**\n\`\`\`${
+                    notification.event.resolution_text ?? "N/A"
+                  }\`\`\``,
                 },
               ],
             };

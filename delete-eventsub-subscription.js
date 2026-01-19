@@ -9,7 +9,9 @@ let token = {
 // https://dev.twitch.tv/docs/api/reference/#delete-eventsub-subscription
 async function deleteSubscription(id) {
   return await fetch(
-    `https://api.twitch.tv/helix/eventsub/subscriptions?id=${encodeURIComponent(id)}`,
+    `https://api.twitch.tv/helix/eventsub/subscriptions?id=${
+      encodeURIComponent(id)
+    }`,
     {
       method: "DELETE",
       headers: {

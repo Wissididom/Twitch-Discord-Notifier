@@ -24,10 +24,9 @@ async function getSubscriptions(
   if (after) {
     data.push(`after=${encodeURIComponent(after)}`);
   }
-  let url =
-    data.length < 1
-      ? "https://api.twitch.tv/helix/eventsub/subscriptions"
-      : `https://api.twitch.tv/helix/eventsub/subscriptions?${data.join("&")}`;
+  let url = data.length < 1
+    ? "https://api.twitch.tv/helix/eventsub/subscriptions"
+    : `https://api.twitch.tv/helix/eventsub/subscriptions?${data.join("&")}`;
   return await fetch(url, {
     method: "GET",
     headers: {
