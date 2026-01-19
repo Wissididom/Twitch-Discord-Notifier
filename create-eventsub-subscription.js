@@ -1,4 +1,4 @@
-import * as readline from "readline";
+import * as readline from "node:readline";
 
 export async function getUser(clientId, accessToken, login) {
   let apiUrl = login

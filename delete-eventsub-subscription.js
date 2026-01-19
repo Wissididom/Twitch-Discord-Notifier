@@ -1,4 +1,4 @@
-import * as readline from "readline";
+import * as readline from "node:readline";
 
 let token = {
   access_token: null,
