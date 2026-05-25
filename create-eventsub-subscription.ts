@@ -1,10 +1,10 @@
 import * as readline from "node:readline";
 
 export async function getUser(clientId, accessToken, login) {
-  let apiUrl = login
+  const apiUrl = login
     ? `https://api.twitch.tv/helix/users?login=${login}`
     : `https://api.twitch.tv/helix/users`;
-  let userResponse = await fetch(apiUrl, {
+  const userResponse = await fetch(apiUrl, {
     headers: {
       "Client-ID": clientId,
       Authorization: `Bearer ${accessToken}`,
@@ -20,7 +20,7 @@ let token = {
 };
 
 async function makeRegisterRequest(type, version, broadcasterId, moderatorId) {
-  let data = {
+  const data = {
     type,
     version,
     condition: {
@@ -59,7 +59,7 @@ async function makeRegisterRequest(type, version, broadcasterId, moderatorId) {
 }
 
 async function registerUnbanRequestCreateEvent(broadcasterId, moderatorId) {
-  return makeRegisterRequest(
+  return await makeRegisterRequest(
     "channel.unban_request.create",
     "1",
     broadcasterId,
@@ -68,7 +68,7 @@ async function registerUnbanRequestCreateEvent(broadcasterId, moderatorId) {
 }
 
 async function registerUnbanRequestResolveEvent(broadcasterId, moderatorId) {
-  return makeRegisterRequest(
+  return await makeRegisterRequest(
     "channel.unban_request.resolve",
     "1",
     broadcasterId,
@@ -77,14 +77,14 @@ async function registerUnbanRequestResolveEvent(broadcasterId, moderatorId) {
 }
 
 async function getToken() {
-  let clientCredentials = await fetch(
+  const clientCredentials = await fetch(
     `https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&grant_type=client_credentials`,
     {
       method: "POST",
     },
   );
   if (clientCredentials.status >= 200 && clientCredentials.status < 300) {
-    let clientCredentialsJson = await clientCredentials.json();
+    const clientCredentialsJson = await clientCredentials.json();
     token = {
       access_token: clientCredentialsJson.access_token,
       expires_in: clientCredentialsJson.expires_in,
@@ -100,7 +100,7 @@ const readlineInterface = readline.createInterface({
 });
 readlineInterface.question(
   "Enter the User whose Channel you want to monitor:\n",
-  async (user) => {
+  (user) => {
     readlineInterface.question(
       "Which event do you want to subscribe (create, resolve):\n",
       async (subType) => {
