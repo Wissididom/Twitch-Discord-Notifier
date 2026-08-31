@@ -1,7 +1,7 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@hono/hono@^4.13.4": "4.13.5"
+    "jsr:@hono/hono@^4.13.5": "4.13.5"
   },
   "jsr": {
     "@hono/hono@4.13.5": {
@@ -10,7 +10,7 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@hono/hono@^4.13.4"
+      "jsr:@hono/hono@^4.13.5"
     ]
   }
 }
